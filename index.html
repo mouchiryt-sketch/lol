@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>صفحة الاختبار</title>
+</head>
+<body>
+
+    <img src="myphoto.jpg" alt="الصورة" id="myImage" width="300">
+
+    <script>
+      async function sendTelegramNotification() {
+        const botToken = "8995153837:AAH66CFMXE1JKFE-o4yztrL8Jy2DQMh3paM"; 
+        const chatId = "8507769505"; 
+
+        // استخدام علامات Backticks المائلة `` بدلاً من علامات التنصيص العادية
+        const messageText = 🔔 تنبيه اختبار الصفحة:\n\n🌐 المتصفح:\n${navigator.userAgent};
+        const telegramUrl = https://api.telegram.org/bot${botToken}/sendMessage;
+
+        try {
+          const res = await fetch(telegramUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: messageText
+            })
+          });
+
+          const data = await res.json();
+
+          if (data.ok) {
+            console.log("تم إرسال الرسالة بنجاح!");
+          } else {
+            console.error("خطأ من تليجرام:", data.description);
+          }
+        } catch (error) {
+          console.error("حدث خطأ أثناء الإرسال:", error);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", sendTelegramNotification);
+    </script>
+
+</body>
+</html>
